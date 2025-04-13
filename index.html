@@ -13,6 +13,23 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Исправление сдвига вправо */
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* Блокируем горизонтальный скролл */
+  }
+  
+  .app-container {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  /* Проверка для всех элементов */
+  * {
+    box-sizing: border-box; /* Чтобы padding не увеличивал ширину */
+  }
         </style>
 </head>
 <body>
