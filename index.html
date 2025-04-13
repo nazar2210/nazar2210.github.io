@@ -17,53 +17,51 @@
 </head>
 <body>
     
-    <div class="app-container">
-        <header>
-            <i class="fas fa-heart heart-icon"></i>
-            <h1>Love Tracker</h1>
-            <p class="subtitle">Дневник ваших отношений</p>
-        </header>
+    <div class="main-content">
+        <!-- Блок годовщины -->
+        <div class="anniversary-container" id="anniversaryContainer">
+            <div class="anniversary-title">
+                <i class="fas fa-heart"></i>
+                <span id="anniversaryTitle">Дата начала отношений</span>
+            </div>
+            <div class="anniversary-date" id="anniversaryDate">Не указана</div>
+            <div class="days-counter" id="daysCounter">0</div>
+            <div class="days-label">дней вместе</div>
+            <button class="set-date-btn" id="setDateBtn">
+                <i class="fas fa-calendar-alt"></i> Указать дату
+            </button>
+        </div>
         
-        <div class="main-content">
-            <!-- Блок годовщины -->
-            <div class="anniversary-container" id="anniversaryContainer">
-                <div class="anniversary-title">
-                    <i class="fas fa-heart"></i>
-                    <span id="anniversaryTitle">Дата начала отношений</span>
-                </div>
-                <div class="anniversary-date" id="anniversaryDate">Не указана</div>
-                <div class="days-counter" id="daysCounter">0</div>
-                <div class="days-label">дней вместе</div>
-                <button class="set-date-btn" id="setDateBtn">
-                    <i class="fas fa-calendar-alt"></i> Указать дату
-                </button>
+        <!-- Статистика -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Этот месяц</div>
+                <div class="stat-value" id="thisMonth">0</div>
+                <div class="stat-label">дней</div>
             </div>
-            
-            <!-- Статистика -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Этот месяц</div>
-                    <div class="stat-value" id="thisMonth">0</div>
-                    <div class="stat-label">дней</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Прошлый месяц</div>
-                    <div class="stat-value" id="lastMonth">0</div>
-                    <div class="stat-label">дней</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Эта неделя</div>
-                    <div class="stat-value" id="thisWeek">0</div>
-                    <div class="stat-label">дней</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">В среднем</div>
-                    <div class="stat-value" id="avgPerWeek">0</div>
-                    <div class="stat-label">в неделю</div>
-                </div>
+            <div class="stat-card">
+                <div class="stat-label">Прошлый месяц</div>
+                <div class="stat-value" id="lastMonth">0</div>
+                <div class="stat-label">дней</div>
             </div>
+            <div class="stat-card">
+                <div class="stat-label">Эта неделя</div>
+                <div class="stat-value" id="thisWeek">0</div>
+                <div class="stat-label">дней</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">В среднем</div>
+                <div class="stat-value" id="avgPerWeek">0</div>
+                <div class="stat-label">в неделю</div>
+            </div>
+        </div>
+        
+        <!-- Календарь -->
+        <div class="calendar-section">
+            <h3 class="section-title">
+                <i class="fas fa-calendar"></i> Календарь близости
+            </h3>
             
-            <!-- Календарь интимной жизни -->
             <div class="calendar-header">
                 <div class="month-title" id="currentMonth"></div>
                 <div class="nav-buttons">
@@ -92,363 +90,639 @@
                     <i class="fas fa-trash-alt"></i> Очистить
                 </button>
             </div>
-            
-            <!-- Заметки -->
-            <div class="notes-section">
-                <div class="notes-title">
-                    <i class="fas fa-book"></i> Ваши заметки
+        </div>
+        
+        <!-- График активности -->
+        <div class="chart-section">
+            <h3 class="section-title">
+                <i class="fas fa-chart-line"></i> График активности
+            </h3>
+            <div class="chart-container">
+                <canvas id="activityChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Галерея фото -->
+        <div class="gallery-section">
+            <h3 class="section-title">
+                <i class="fas fa-camera"></i> Наши моменты
+            </h3>
+            <input type="file" id="photoUpload" accept="image/*" multiple style="display: none;">
+            <button class="btn btn-outline" id="addPhotoBtn">
+                <i class="fas fa-plus"></i> Добавить фото
+            </button>
+            <div class="gallery-grid" id="photoGallery">
+                <div class="gallery-item add-photo-btn" id="addPhotoPlaceholder">
+                    <i class="fas fa-camera"></i>
                 </div>
-                <textarea class="notes-textarea" id="notes" placeholder="Записывайте здесь ваши мысли, наблюдения или пожелания..."></textarea>
-                <button class="btn btn-primary" id="saveNotesBtn" style="margin-top: 10px;">
-                    <i class="fas fa-save"></i> Сохранить заметки
-                </button>
             </div>
         </div>
+        
+        <!-- Напоминания -->
+        <div class="reminders-section">
+            <h3 class="section-title">
+                <i class="fas fa-bell"></i> Напоминания
+            </h3>
+            <div class="reminders-list" id="remindersList"></div>
+            <button class="btn btn-outline" id="addReminderBtn">
+                <i class="fas fa-plus"></i> Добавить напоминание
+            </button>
+        </div>
+        
+        <!-- Достижения -->
+        <div class="achievements-section">
+            <h3 class="section-title">
+                <i class="fas fa-trophy"></i> Наши достижения
+            </h3>
+            <div class="achievements-grid" id="achievementsGrid"></div>
+        </div>
+        
+        <!-- Заметки -->
+        <div class="notes-section">
+            <h3 class="section-title">
+                <i class="fas fa-book"></i> Наши заметки
+            </h3>
+            <textarea class="notes-textarea" id="notes" placeholder="Записывайте здесь ваши мысли, чувства и важные моменты..."></textarea>
+            <button class="btn btn-primary" id="saveNotesBtn" style="margin-top: 15px;">
+                <i class="fas fa-save"></i> Сохранить заметки
+            </button>
+        </div>
     </div>
+</div>
+
+<!-- Модальное окно выбора даты -->
+<div class="date-picker-modal" id="datePickerModal">
+    <div class="date-picker-content">
+        <div class="date-picker-title">Когда вы начали встречаться?</div>
+        <input type="date" class="date-input" id="dateInput">
+        <div class="modal-buttons">
+            <button class="modal-btn modal-btn-primary" id="saveDateBtn">Сохранить</button>
+            <button class="modal-btn modal-btn-secondary" id="cancelDateBtn">Отмена</button>
+        </div>
+    </div>
+</div>
+
+<!-- Подключаем Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Данные приложения
+    const appData = {
+        records: JSON.parse(localStorage.getItem('loveTrackerRecords')) || [],
+        notes: localStorage.getItem('loveTrackerNotes') || '',
+        anniversaryDate: localStorage.getItem('loveTrackerAnniversary'),
+        photos: JSON.parse(localStorage.getItem('loveTrackerPhotos')) || [],
+        reminders: JSON.parse(localStorage.getItem('loveTrackerReminders')) || [],
+        achievements: JSON.parse(localStorage.getItem('loveTrackerAchievements')) || [],
+        
+        currentDate: new Date(),
+        displayedMonth: new Date().getMonth(),
+        displayedYear: new Date().getFullYear(),
+        
+        // Достижения
+        achievementDefinitions: [
+            { id: 1, title: "Первая неделя", desc: "Провести вместе 7 дней", check: (d) => d >= 7 },
+            { id: 2, title: "Месяц вместе", desc: "Провести вместе 30 дней", check: (d) => d >= 30 },
+            { id: 3, title: "Годовщина", desc: "Провести вместе 365 дней", check: (d) => d >= 365 },
+            { id: 4, title: "Активный месяц", desc: "10+ дней за месяц", check: () => 
+                appData.records.filter(d => {
+                    const date = new Date(d);
+                    const today = new Date();
+                    return date.getMonth() === today.getMonth() && 
+                           date.getFullYear() === today.getFullYear();
+                }).length >= 10
+            },
+            { id: 5, title: "Романтик", desc: "Отметить 50 дней", check: () => appData.records.length >= 50 },
+            { id: 6, title: "Фотограф", desc: "Добавить 5 фото", check: () => appData.photos.length >= 5 }
+        ]
+    };
+
+    // Инициализация приложения
+    document.addEventListener('DOMContentLoaded', () => {
+        // Загрузка данных
+        loadAnniversary();
+        loadNotes();
+        loadPhotos();
+        loadReminders();
+        loadAchievements();
+        
+        // Обновление интерфейса
+        updateStats();
+        renderCalendar();
+        renderChart();
+        
+        // Настройка обработчиков событий
+        setupEventListeners();
+        
+        // Проверка напоминаний
+        checkReminders();
+    });
+
+    /* ===== ОСНОВНЫЕ ФУНКЦИИ ===== */
     
-    <!-- Модальное окно выбора даты -->
-    <div class="date-picker-modal" id="datePickerModal">
-        <div class="date-picker-content">
-            <div class="date-picker-title">Укажите дату начала отношений</div>
-            <input type="date" class="date-input" id="dateInput">
-            <div class="modal-buttons">
-                <button class="modal-btn modal-btn-primary" id="saveDateBtn">Сохранить</button>
-                <button class="modal-btn modal-btn-secondary" id="cancelDateBtn">Отмена</button>
+    // Загрузка и отображение годовщины
+    function loadAnniversary() {
+        if (appData.anniversaryDate) {
+            updateAnniversaryDisplay();
+        }
+    }
+    
+    function updateAnniversaryDisplay() {
+        const startDate = new Date(appData.anniversaryDate);
+        const today = appData.currentDate;
+        
+        const timeDiff = today - startDate;
+        const daysTogether = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = startDate.toLocaleDateString('ru-RU', options);
+        
+        document.getElementById('anniversaryDate').textContent = formattedDate;
+        document.getElementById('daysCounter').textContent = daysTogether;
+        
+        if (daysTogether >= 365) {
+            const years = Math.floor(daysTogether / 365);
+            document.getElementById('anniversaryTitle').innerHTML = 
+                `<i class="fas fa-heart"></i> Вместе уже ${years} ${getYearsWord(years)}`;
+        }
+    }
+    
+    function getYearsWord(years) {
+        const lastDigit = years % 10;
+        const lastTwoDigits = years % 100;
+        
+        if (lastTwoDigits >= 11 && lastTwoDigits <= 19) return 'лет';
+        if (lastDigit === 1) return 'год';
+        if (lastDigit >= 2 && lastDigit <= 4) return 'года';
+        return 'лет';
+    }
+
+    // Работа с календарем
+    function renderCalendar() {
+        const calendarEl = document.getElementById('calendar');
+        calendarEl.innerHTML = '';
+        
+        const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+                          "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+        document.getElementById('currentMonth').textContent = 
+            `${monthNames[appData.displayedMonth]} ${appData.displayedYear}`;
+        
+        const firstDay = new Date(appData.displayedYear, appData.displayedMonth, 1);
+        const daysInMonth = new Date(appData.displayedYear, appData.displayedMonth + 1, 0).getDate();
+        
+        let firstDayOfWeek = firstDay.getDay();
+        if (firstDayOfWeek === 0) firstDayOfWeek = 7;
+        
+        // Пустые дни
+        for (let i = 1; i < firstDayOfWeek; i++) {
+            const emptyDay = document.createElement('div');
+            emptyDay.className = 'calendar-day empty';
+            calendarEl.appendChild(emptyDay);
+        }
+        
+        // Дни месяца
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayEl = document.createElement('div');
+            dayEl.className = 'calendar-day';
+            dayEl.textContent = day;
+            
+            const thisDate = new Date(appData.displayedYear, appData.displayedMonth, day);
+            if (thisDate.toDateString() === appData.currentDate.toDateString()) {
+                dayEl.classList.add('today');
+            }
+            
+            const dateStr = formatDate(thisDate);
+            if (appData.records.includes(dateStr)) {
+                dayEl.classList.add('active');
+            }
+            
+            dayEl.addEventListener('click', () => toggleDate(appData.displayedYear, appData.displayedMonth, day));
+            calendarEl.appendChild(dayEl);
+        }
+    }
+    
+    function toggleDate(year, month, day) {
+        const date = new Date(year, month, day);
+        const dateStr = formatDate(date);
+        
+        if (appData.records.includes(dateStr)) {
+            appData.records = appData.records.filter(d => d !== dateStr);
+        } else {
+            appData.records.push(dateStr);
+        }
+        
+        saveData('records');
+        updateStats();
+        renderCalendar();
+        checkAchievements();
+    }
+    
+    function formatDate(date) {
+        const d = new Date(date);
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        const year = d.getFullYear();
+        
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+        
+        return [year, month, day].join('-');
+    }
+
+    // Статистика
+    function updateStats() {
+        // Текущий месяц
+        const thisMonthCount = appData.records.filter(date => {
+            const d = new Date(date);
+            return d.getMonth() === appData.currentDate.getMonth() && 
+                   d.getFullYear() === appData.currentDate.getFullYear();
+        }).length;
+        document.getElementById('thisMonth').textContent = thisMonthCount;
+        
+        // Прошлый месяц
+        const lastMonthDate = new Date(appData.currentDate.getFullYear(), appData.currentDate.getMonth() - 1, 1);
+        const lastMonthCount = appData.records.filter(date => {
+            const d = new Date(date);
+            return d.getMonth() === lastMonthDate.getMonth() && 
+                   d.getFullYear() === lastMonthDate.getFullYear();
+        }).length;
+        document.getElementById('lastMonth').textContent = lastMonthCount;
+        
+        // Текущая неделя
+        const weekAgo = new Date();
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        const thisWeekCount = appData.records.filter(date => {
+            const d = new Date(date);
+            return d >= weekAgo && d <= appData.currentDate;
+        }).length;
+        document.getElementById('thisWeek').textContent = thisWeekCount;
+        
+        // Среднее в неделю
+        if (appData.records.length > 0) {
+            const firstDate = new Date(appData.records[0]);
+            const weeks = Math.max(1, Math.ceil((appData.currentDate - firstDate) / (1000 * 60 * 60 * 24 * 7)));
+            document.getElementById('avgPerWeek').textContent = (appData.records.length / weeks).toFixed(1);
+        } else {
+            document.getElementById('avgPerWeek').textContent = '0';
+        }
+    }
+
+    // График активности
+    function renderChart() {
+        const ctx = document.getElementById('activityChart').getContext('2d');
+        const last6Months = getLastMonths(6);
+        
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: last6Months.map(m => m.name),
+                datasets: [{
+                    label: 'Активность по месяцам',
+                    data: last6Months.map(m => m.count),
+                    backgroundColor: 'rgba(255, 107, 139, 0.7)',
+                    borderColor: 'rgba(255, 107, 139, 1)',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                animation: {
+                    duration: 1000
+                }
+            }
+        });
+    }
+    
+    function getLastMonths(num) {
+        const result = [];
+        const today = new Date();
+        
+        for (let i = num-1; i >= 0; i--) {
+            const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
+            const monthName = date.toLocaleString('ru', { month: 'short' });
+            const year = date.getFullYear();
+            
+            const count = appData.records.filter(d => {
+                const recordDate = new Date(d);
+                return recordDate.getMonth() === date.getMonth() && 
+                       recordDate.getFullYear() === date.getFullYear();
+            }).length;
+            
+            result.push({
+                name: `${monthName} ${year}`,
+                count: count
+            });
+        }
+        
+        return result;
+    }
+
+    // Фото-галерея
+    function loadPhotos() {
+        const gallery = document.getElementById('photoGallery');
+        gallery.innerHTML = '';
+        
+        appData.photos.forEach((photoData, index) => {
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            item.innerHTML = `
+                <img src="${photoData}" alt="Наше фото ${index + 1}">
+                <button class="delete-photo" data-index="${index}">&times;</button>
+            `;
+            gallery.appendChild(item);
+        });
+        
+        // Добавляем кнопку добавления
+        const addBtn = document.createElement('div');
+        addBtn.className = 'gallery-item add-photo-btn';
+        addBtn.innerHTML = '<i class="fas fa-camera"></i>';
+        addBtn.addEventListener('click', () => document.getElementById('photoUpload').click());
+        gallery.appendChild(addBtn);
+        
+        // Обработчики удаления
+        document.querySelectorAll('.delete-photo').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                appData.photos.splice(e.target.dataset.index, 1);
+                saveData('photos');
+                loadPhotos();
+                checkAchievements();
+            });
+        });
+    }
+
+    // Напоминания
+    function loadReminders() {
+        const list = document.getElementById('remindersList');
+        list.innerHTML = '';
+        
+        appData.reminders.forEach((reminder, index) => {
+            const item = document.createElement('div');
+            item.className = 'reminder-item';
+            item.innerHTML = `
+                <div>
+                    <span class="reminder-date">${reminder.date}</span>: ${reminder.text}
+                </div>
+                <button class="delete-reminder" data-index="${index}">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            list.appendChild(item);
+        });
+        
+        // Обработчики удаления
+        document.querySelectorAll('.delete-reminder').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                appData.reminders.splice(btn.dataset.index, 1);
+                saveData('reminders');
+                loadReminders();
+            });
+        });
+    }
+    
+    function checkReminders() {
+        if (!appData.anniversaryDate) return;
+        
+        const today = new Date();
+        const todayStr = `${today.getDate()}.${today.getMonth()+1}`;
+        
+        appData.reminders.forEach(reminder => {
+            if (reminder.date === todayStr) {
+                showNotification(`Напоминание: ${reminder.text}`);
+            }
+        });
+    }
+
+    // Достижения
+    function loadAchievements() {
+        const grid = document.getElementById('achievementsGrid');
+        grid.innerHTML = '';
+        
+        appData.achievementDefinitions.forEach(ach => {
+            const isUnlocked = appData.achievements.includes(ach.id);
+            const item = document.createElement('div');
+            item.className = `achievement-item ${isUnlocked ? 'unlocked' : 'locked'}`;
+            item.innerHTML = `
+                <i class="fas ${isUnlocked ? 'fa-trophy' : 'fa-lock'}"></i>
+                <div class="achievement-text">
+                    <strong>${ach.title}</strong>
+                    <small>${ach.desc}</small>
+                </div>
+            `;
+            grid.appendChild(item);
+        });
+    }
+    
+    function checkAchievements() {
+        if (!appData.anniversaryDate) return;
+        
+        const daysTogether = Math.floor((new Date() - new Date(appData.anniversaryDate)) / (1000 * 60 * 60 * 24));
+        
+        appData.achievementDefinitions.forEach(ach => {
+            if (!appData.achievements.includes(ach.id) && ach.check(daysTogether)) {
+                appData.achievements.push(ach.id);
+                saveData('achievements');
+                showAchievementNotification(ach.title);
+                loadAchievements();
+            }
+        });
+    }
+
+    // Заметки
+    function loadNotes() {
+        document.getElementById('notes').value = appData.notes;
+    }
+
+    // Уведомления
+    function showNotification(message) {
+        const notif = document.createElement('div');
+        notif.className = 'achievement-notification';
+        notif.innerHTML = `
+            <i class="fas fa-bell"></i>
+            <div class="notification-content">
+                <p>${message}</p>
             </div>
-        </div>
-    </div>
-
-    <script>
-        // Данные хранятся в localStorage
-        let records = JSON.parse(localStorage.getItem('loveTrackerRecords')) || [];
-        let notes = localStorage.getItem('loveTrackerNotes') || '';
-        let anniversaryDate = localStorage.getItem('loveTrackerAnniversary');
-        let currentDate = new Date();
-        let displayedMonth = currentDate.getMonth();
-        let displayedYear = currentDate.getFullYear();
-
-        // Элементы DOM
-        const elements = {
-            // Блок годовщины
-            anniversaryContainer: document.getElementById('anniversaryContainer'),
-            anniversaryTitle: document.getElementById('anniversaryTitle'),
-            anniversaryDate: document.getElementById('anniversaryDate'),
-            daysCounter: document.getElementById('daysCounter'),
-            setDateBtn: document.getElementById('setDateBtn'),
-            
-            // Модальное окно
-            datePickerModal: document.getElementById('datePickerModal'),
-            dateInput: document.getElementById('dateInput'),
-            saveDateBtn: document.getElementById('saveDateBtn'),
-            cancelDateBtn: document.getElementById('cancelDateBtn'),
-            
-            // Статистика
-            thisMonth: document.getElementById('thisMonth'),
-            lastMonth: document.getElementById('lastMonth'),
-            thisWeek: document.getElementById('thisWeek'),
-            avgPerWeek: document.getElementById('avgPerWeek'),
-            
-            // Календарь
-            currentMonth: document.getElementById('currentMonth'),
-            calendar: document.getElementById('calendar'),
-            prevMonthBtn: document.getElementById('prevMonthBtn'),
-            nextMonthBtn: document.getElementById('nextMonthBtn'),
-            addBtn: document.getElementById('addBtn'),
-            clearBtn: document.getElementById('clearBtn'),
-            
-            // Заметки
-            notes: document.getElementById('notes'),
-            saveNotesBtn: document.getElementById('saveNotesBtn')
-        };
-
-        // Инициализация приложения
-        function init() {
-            // Загрузка данных
-            loadAnniversaryDate();
-            loadNotes();
-            updateStats();
-            renderCalendar();
-            
-            // Настройка обработчиков событий
-            setupEventListeners();
-        }
-
-        // Загрузка даты годовщины
-        function loadAnniversaryDate() {
-            if (anniversaryDate) {
-                updateAnniversaryDisplay();
-            }
-        }
+        `;
+        document.body.appendChild(notif);
         
-        // Обновление отображения годовщины
-        function updateAnniversaryDisplay() {
-            const startDate = new Date(anniversaryDate);
-            const today = new Date();
-            
-            // Вычисляем количество дней
-            const timeDiff = today - startDate;
-            const daysTogether = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-            
-            // Форматируем дату для отображения
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const formattedDate = startDate.toLocaleDateString('ru-RU', options);
-            
-            // Обновляем интерфейс
-            elements.anniversaryDate.textContent = formattedDate;
-            elements.daysCounter.textContent = daysTogether;
-            
-            // Меняем заголовок после первого года
-            if (daysTogether >= 365) {
-                const years = Math.floor(daysTogether / 365);
-                elements.anniversaryTitle.innerHTML = 
-                    `<i class="fas fa-heart"></i> Вместе уже ${years} ${getYearsWord(years)}`;
-            }
-        }
+        setTimeout(() => {
+            notif.classList.add('show');
+            setTimeout(() => {
+                notif.classList.remove('show');
+                setTimeout(() => notif.remove(), 500);
+            }, 5000);
+        }, 100);
+    }
+    
+    function showAchievementNotification(title) {
+        const notif = document.createElement('div');
+        notif.className = 'achievement-notification';
+        notif.innerHTML = `
+            <i class="fas fa-trophy"></i>
+            <div class="notification-content">
+                <h4>Новое достижение!</h4>
+                <p>${title}</p>
+            </div>
+        `;
+        document.body.appendChild(notif);
         
-        // Правильное склонение слова "год"
-        function getYearsWord(years) {
-            const lastDigit = years % 10;
-            const lastTwoDigits = years % 100;
-            
-            if (lastTwoDigits >= 11 && lastTwoDigits <= 19) return 'лет';
-            if (lastDigit === 1) return 'год';
-            if (lastDigit >= 2 && lastDigit <= 4) return 'года';
-            return 'лет';
-        }
+        setTimeout(() => {
+            notif.classList.add('show');
+            setTimeout(() => {
+                notif.classList.remove('show');
+                setTimeout(() => notif.remove(), 500);
+            }, 5000);
+        }, 100);
+    }
 
-        // Показать модальное окно выбора даты
-        function showDatePicker() {
-            elements.datePickerModal.style.display = 'flex';
-            elements.dateInput.value = anniversaryDate || '';
-        }
+    // Сохранение данных
+    function saveData(key) {
+        localStorage.setItem(`loveTracker${key.charAt(0).toUpperCase() + key.slice(1)}`, 
+                          JSON.stringify(appData[key]));
+    }
 
-        // Скрыть модальное окно
-        function hideDatePicker() {
-            elements.datePickerModal.style.display = 'none';
-        }
-
-        // Сохранить дату отношений
-        function saveAnniversaryDate() {
-            if (!elements.dateInput.value) {
+    // Обработчики событий
+    function setupEventListeners() {
+        // Годовщина
+        document.getElementById('setDateBtn').addEventListener('click', () => {
+            document.getElementById('datePickerModal').style.display = 'flex';
+            document.getElementById('dateInput').value = appData.anniversaryDate || '';
+        });
+        
+        document.getElementById('saveDateBtn').addEventListener('click', () => {
+            const dateInput = document.getElementById('dateInput').value;
+            if (!dateInput) {
                 alert('Пожалуйста, выберите дату');
                 return;
             }
             
-            anniversaryDate = elements.dateInput.value;
-            localStorage.setItem('loveTrackerAnniversary', anniversaryDate);
+            appData.anniversaryDate = dateInput;
+            localStorage.setItem('loveTrackerAnniversary', appData.anniversaryDate);
             updateAnniversaryDisplay();
-            hideDatePicker();
+            document.getElementById('datePickerModal').style.display = 'none';
+            checkAchievements();
             
-            // Анимация подтверждения
-            animateElement(elements.anniversaryContainer);
-        }
+            animateElement(document.getElementById('anniversaryContainer'));
+        });
         
-        // Анимация элемента
-        function animateElement(element) {
-            element.style.transform = 'scale(1.05)';
-            setTimeout(() => {
-                element.style.transform = 'scale(1)';
-            }, 300);
-        }
-
-        // Загрузка заметок
-        function loadNotes() {
-            elements.notes.value = notes;
-        }
+        document.getElementById('cancelDateBtn').addEventListener('click', () => {
+            document.getElementById('datePickerModal').style.display = 'none';
+        });
         
-        // Сохранение заметок
-        function saveNotes() {
-            notes = elements.notes.value;
-            localStorage.setItem('loveTrackerNotes', notes);
+        // Календарь
+        document.getElementById('prevMonthBtn').addEventListener('click', () => {
+            appData.displayedMonth--;
+            if (appData.displayedMonth < 0) {
+                appData.displayedMonth = 11;
+                appData.displayedYear--;
+            }
+            renderCalendar();
+        });
+        
+        document.getElementById('nextMonthBtn').addEventListener('click', () => {
+            appData.displayedMonth++;
+            if (appData.displayedMonth > 11) {
+                appData.displayedMonth = 0;
+                appData.displayedYear++;
+            }
+            renderCalendar();
+        });
+        
+        document.getElementById('addBtn').addEventListener('click', () => {
+            const todayStr = formatDate(appData.currentDate);
             
-            // Анимация подтверждения
-            elements.saveNotesBtn.innerHTML = '<i class="fas fa-check"></i> Сохранено!';
+            if (!appData.records.includes(todayStr)) {
+                appData.records.push(todayStr);
+                saveData('records');
+                updateStats();
+                renderCalendar();
+                checkAchievements();
+                animateElement(document.getElementById('addBtn'));
+            }
+        });
+        
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            if (confirm('Вы действительно хотите очистить всю статистику близости?')) {
+                appData.records = [];
+                saveData('records');
+                updateStats();
+                renderCalendar();
+            }
+        });
+        
+        // Фото
+        document.getElementById('addPhotoBtn').addEventListener('click', () => {
+            document.getElementById('photoUpload').click();
+        });
+        
+        document.getElementById('photoUpload').addEventListener('change', (e) => {
+            const files = e.target.files;
+            for (let file of files) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    appData.photos.push(event.target.result);
+                    saveData('photos');
+                    loadPhotos();
+                    checkAchievements();
+                };
+                reader.readAsDataURL(file);
+            }
+            e.target.value = '';
+        });
+        
+        // Напоминания
+        document.getElementById('addReminderBtn').addEventListener('click', () => {
+            const date = prompt("Введите дату в формате ДД.ММ (например, 14.02):");
+            if (!date) return;
+            
+            if (!/^\d{1,2}\.\d{1,2}$/.test(date)) {
+                alert('Пожалуйста, введите дату в правильном формате (ДД.ММ)');
+                return;
+            }
+            
+            const text = prompt("Введите текст напоминания:");
+            if (!text) return;
+            
+            appData.reminders.push({ date, text });
+            saveData('reminders');
+            loadReminders();
+        });
+        
+        // Заметки
+        document.getElementById('saveNotesBtn').addEventListener('click', () => {
+            appData.notes = document.getElementById('notes').value;
+            localStorage.setItem('loveTrackerNotes', appData.notes);
+            
+            const btn = document.getElementById('saveNotesBtn');
+            btn.innerHTML = '<i class="fas fa-check"></i> Сохранено!';
             setTimeout(() => {
-                elements.saveNotesBtn.innerHTML = '<i class="fas fa-save"></i> Сохранить заметки';
+                btn.innerHTML = '<i class="fas fa-save"></i> Сохранить заметки';
             }, 2000);
-        }
-
-        // Рендер календаря
-        function renderCalendar() {
-            elements.calendar.innerHTML = '';
-            
-            // Установка заголовка месяца
-            const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
-                              "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
-            elements.currentMonth.textContent = `${monthNames[displayedMonth]} ${displayedYear}`;
-            
-            // Получаем первый день месяца и сколько дней в месяце
-            const firstDay = new Date(displayedYear, displayedMonth, 1);
-            const daysInMonth = new Date(displayedYear, displayedMonth + 1, 0).getDate();
-            
-            // Получаем день недели первого дня
-            let firstDayOfWeek = firstDay.getDay();
-            if (firstDayOfWeek === 0) firstDayOfWeek = 7; // Делаем воскресенье 7-м днем
-            
-            // Добавляем пустые ячейки для дней из предыдущего месяца
-            for (let i = 1; i < firstDayOfWeek; i++) {
-                const emptyDay = document.createElement('div');
-                emptyDay.className = 'calendar-day empty';
-                elements.calendar.appendChild(emptyDay);
-            }
-            
-            // Добавляем дни месяца
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayEl = document.createElement('div');
-                dayEl.className = 'calendar-day';
-                dayEl.textContent = day;
-                
-                // Проверяем, сегодня ли это день
-                const thisDate = new Date(displayedYear, displayedMonth, day);
-                if (thisDate.toDateString() === currentDate.toDateString()) {
-                    dayEl.classList.add('today');
-                }
-                
-                // Проверяем, есть ли запись на этот день
-                const dateStr = formatDate(thisDate);
-                if (records.includes(dateStr)) {
-                    dayEl.classList.add('active');
-                }
-                
-                // Добавляем обработчик клика
-                dayEl.addEventListener('click', () => toggleDate(displayedYear, displayedMonth, day));
-                
-                elements.calendar.appendChild(dayEl);
-            }
-        }
-
-        // Переключение даты (добавление/удаление)
-        function toggleDate(year, month, day) {
-            const date = new Date(year, month, day);
-            const dateStr = formatDate(date);
-            
-            if (records.includes(dateStr)) {
-                records = records.filter(d => d !== dateStr);
-            } else {
-                records.push(dateStr);
-            }
-            
-            saveRecords();
-            updateStats();
-            renderCalendar();
-        }
-
-        // Добавление сегодняшней даты
-        function addToday() {
-            const todayStr = formatDate(currentDate);
-            
-            if (!records.includes(todayStr)) {
-                records.push(todayStr);
-                saveRecords();
-                updateStats();
-                renderCalendar();
-                animateElement(elements.addBtn);
-            }
-        }
-
-        // Показать предыдущий месяц
-        function showPrevMonth() {
-            displayedMonth--;
-            if (displayedMonth < 0) {
-                displayedMonth = 11;
-                displayedYear--;
-            }
-            renderCalendar();
-        }
-
-        // Показать следующий месяц
-        function showNextMonth() {
-            displayedMonth++;
-            if (displayedMonth > 11) {
-                displayedMonth = 0;
-                displayedYear++;
-            }
-            renderCalendar();
-        }
-
-        // Очистка данных
-        function clearData() {
-            if (confirm('Вы действительно хотите очистить все данные? Это действие нельзя отменить.')) {
-                records = [];
-                saveRecords();
-                updateStats();
-                renderCalendar();
-            }
-        }
-
-        // Обновление статистики
-        function updateStats() {
-            // Текущий месяц
-            const thisMonthCount = records.filter(date => {
-                const d = new Date(date);
-                return d.getMonth() === currentDate.getMonth() && d.getFullYear() === currentDate.getFullYear();
-            }).length;
-            elements.thisMonth.textContent = thisMonthCount;
-            
-            // Прошлый месяц
-            const lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
-            const lastMonthCount = records.filter(date => {
-                const d = new Date(date);
-                return d.getMonth() === lastMonthDate.getMonth() && d.getFullYear() === lastMonthDate.getFullYear();
-            }).length;
-            elements.lastMonth.textContent = lastMonthCount;
-            
-            // Текущая неделя
-            const weekAgo = new Date();
-            weekAgo.setDate(weekAgo.getDate() - 7);
-            const thisWeekCount = records.filter(date => {
-                const d = new Date(date);
-                return d >= weekAgo && d <= currentDate;
-            }).length;
-            elements.thisWeek.textContent = thisWeekCount;
-            
-            // Среднее в неделю
-            if (records.length > 0) {
-                const firstDate = new Date(records[0]);
-                const weeks = Math.max(1, Math.ceil((currentDate - firstDate) / (1000 * 60 * 60 * 24 * 7)));
-                elements.avgPerWeek.textContent = (records.length / weeks).toFixed(1);
-            } else {
-                elements.avgPerWeek.textContent = '0';
-            }
-        }
-
-        // Сохранение записей
-        function saveRecords() {
-            localStorage.setItem('loveTrackerRecords', JSON.stringify(records));
-        }
-
-        // Форматирование даты в YYYY-MM-DD
-        function formatDate(date) {
-            const d = new Date(date);
-            let month = '' + (d.getMonth() + 1);
-            let day = '' + d.getDate();
-            const year = d.getFullYear();
-            
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
-            
-            return [year, month, day].join('-');
-        }
-
-        // Настройка обработчиков событий
-        function setupEventListeners() {
-            // Годовщина
-            elements.setDateBtn.addEventListener('click', showDatePicker);
-            elements.saveDateBtn.addEventListener('click', saveAnniversaryDate);
-            elements.cancelDateBtn.addEventListener('click', hideDatePicker);
-            
-            // Календарь
-            elements.prevMonthBtn.addEventListener('click', showPrevMonth);
-            elements.nextMonthBtn.addEventListener('click', showNextMonth);
-            elements.addBtn.addEventListener('click', addToday);
-            elements.clearBtn.addEventListener('click', clearData);
-            
-            // Заметки
-            elements.saveNotesBtn.addEventListener('click', saveNotes);
-        }
-
-        // Запуск приложения после загрузки DOM
-        document.addEventListener('DOMContentLoaded', init);
-    </script>
+        });
+    }
+    
+    // Вспомогательные функции
+    function animateElement(element) {
+        element.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+            element.style.transform = 'scale(1)';
+        }, 300);
+    }
+</script>
 </body>
 </html>
